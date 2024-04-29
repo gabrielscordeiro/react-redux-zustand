@@ -1,7 +1,9 @@
 import * as Collapsible from '@radix-ui/react-collapsible'
 import { ChevronDown } from 'lucide-react'
+import { useDispatch } from 'react-redux'
 
 import { useAppSelector } from '../store'
+import { play } from '../store/slices/player.ts'
 import { Lesson } from './lesson.tsx'
 
 interface ModuleProps {
@@ -19,8 +21,9 @@ export function Module({
         return state.player.course.modules[moduleIndex].lessons
     })
 
-    return (
+    const dispatch = useDispatch()
 
+    return (
         <Collapsible.Root className="group">
             <Collapsible.Trigger className="flex w-full items-center gap-3 bg-zinc-800 p-4">
                 <div className="flex size-10 items-center justify-center rounded-full bg-zinc-950 text-sm">
@@ -38,11 +41,12 @@ export function Module({
             <Collapsible.Content>
 
                 <nav className="relative flex flex-col gap-4 p-6">
-                    {lessons.map(lesson => (
+                    {lessons.map((lesson, lessonIndex) => (
                         <Lesson
                             key={lesson.id}
                             title={lesson.title}
                             duration={lesson.duration}
+                            onPlay={() => dispatch(play([moduleIndex, lessonIndex]))}
                         />
                     ))}
                 </nav>
