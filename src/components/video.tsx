@@ -1,11 +1,10 @@
 import ReactPlayer from 'react-player'
 import { useDispatch } from 'react-redux'
 
-import { next, useCurrentLesson } from '../store/slices/player.ts'
+import { next, useCurrentLesson } from '../store/slices/player'
 
-export function Video(){
+export function Video() {
     const dispatch = useDispatch()
-
     const { currentLesson } = useCurrentLesson()
 
     function handlePlayNext() {
@@ -14,7 +13,7 @@ export function Video(){
 
     return (
         <div className="aspect-video w-full bg-zinc-950">
-            <ReactPlayer
+            <ReactPlayer 
                 width="100%"
                 height="100%"
                 controls

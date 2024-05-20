@@ -1,5 +1,5 @@
 module.exports = {
-  extends: [
-    '@mzrd/eslint-config',
-  ],
+    extends: [
+        '@mzrd/eslint-config',
+    ],
 }

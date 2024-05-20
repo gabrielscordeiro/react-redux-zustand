@@ -1,8 +1,8 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice,PayloadAction } from '@reduxjs/toolkit'
 
-import { useAppSelector } from '../index.ts'
+import { useAppSelector } from '..'
 
-const playerSlice = createSlice({
+export const playerSlice = createSlice({
     name: 'player',
     initialState: {
         course: {
@@ -27,40 +27,38 @@ const playerSlice = createSlice({
                         { id: 'Ng_Vk4tBl0g', title: 'Responsividade', duration: '10:05' },
                         { id: 'h5JA3wfuW1k', title: 'Interações no JSX', duration: '06:33' },
                         { id: '1G0vSTqWELg', title: 'Utilizando estado', duration: '09:12' },
-                    ],
+                    ], 
                 },
             ],
         },
         currentModuleIndex: 0,
-        currentLessonIndex: 0
+        currentLessonIndex: 0,
     },
     reducers: {
         play: (state, action: PayloadAction<[number, number]>) => {
             state.currentModuleIndex = action.payload[0]
             state.currentLessonIndex = action.payload[1]
         },
-
         next: (state) => {
             const nextLessonIndex = state.currentLessonIndex + 1
             const nextLesson = state.course.modules[state.currentModuleIndex].lessons[nextLessonIndex]
 
-            if(nextLesson) {
+            if (nextLesson) {
                 state.currentLessonIndex = nextLessonIndex
             } else {
                 const nextModuleIndex = state.currentModuleIndex + 1
                 const nextModule = state.course.modules[nextModuleIndex]
 
-                if(nextModule) {
+                if (nextModule) {
                     state.currentModuleIndex = nextModuleIndex
                     state.currentLessonIndex = 0
                 }
             }
         }
-    }
+    },
 })
 
 export const player = playerSlice.reducer
-
 export const { play, next } = playerSlice.actions
 
 export const useCurrentLesson = () => {

@@ -1,11 +1,11 @@
 import { MessageCircle } from 'lucide-react'
 import { useEffect } from 'react'
 
-import { Header } from '../components/header'
-import { Module } from '../components/module'
-import { Video } from '../components/video'
+import { Header } from '../components/Header'
+import { Module } from '../components/Module'
+import { Video } from '../components/Video'
 import { useAppSelector } from '../store'
-import { useCurrentLesson } from '../store/slices/player.ts'
+import { useCurrentLesson } from '../store/slices/player'
 
 export function Player() {
     const modules = useAppSelector(state => {
@@ -19,15 +19,14 @@ export function Player() {
     }, [currentLesson])
 
     return (
-        <div className="flex h-screen items-center justify-center bg-zinc-950 text-zinc-50">
+        <div className="flex h-screen items-center justify-center bg-zinc-950 text-zinc-50"> 
             <div className="flex w-[1100px] flex-col gap-6">
                 <div className="flex items-center justify-between">
                     <Header />
 
-
                     <button className="flex items-center gap-2 rounded bg-violet-500 px-3 py-2 text-sm font-medium text-white hover:bg-violet-600">
                         <MessageCircle className="size-4" />
-                        Deixar feedback
+            Deixar feedback
                     </button>
                 </div>
 
@@ -35,15 +34,14 @@ export function Player() {
                     <div className="flex-1">
                         <Video />
                     </div>
-
-                    <aside className="absolute inset-y-0 right-0 w-80 divide-y-2 divide-zinc-900 overflow-y-auto border-l border-zinc-800 bg-zinc-900 scrollbar scrollbar-thin scrollbar-track-zinc-950 scrollbar-thumb-zinc-800">
+                    <aside className="absolute inset-y-0 right-0 w-80 divide-y-2 divide-zinc-900 overflow-y-scroll border-l border-zinc-800 bg-zinc-900 scrollbar scrollbar-thin scrollbar-track-zinc-950 scrollbar-thumb-zinc-800">
                         {modules.map((module, index) => {
                             return (
                                 <Module
                                     key={module.id}
                                     moduleIndex={index}
                                     title={module.title}
-                                    lessonsAmount={module.lessons.length}
+                                    amountOfLessons={module.lessons.length}
                                 />
                             )
                         })}

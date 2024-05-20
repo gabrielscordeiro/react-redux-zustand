@@ -6,17 +6,19 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "dependencies": {
     "@radix-ui/react-collapsible": "^1.0.3",
-    "@reduxjs/toolkit": "^2.2.3",
-    "lucide-react": "^0.371.0",
+    "@reduxjs/toolkit": "^1.9.5",
+    "lucide-react": "^0.244.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-player": "^2.16.0",
-    "react-redux": "^9.1.1"
+    "react-player": "^2.12.0",
+    "react-redux": "^8.1.0"
   },
   "devDependencies": {
     "@mzrd/eslint-config": "^1.0.27",
