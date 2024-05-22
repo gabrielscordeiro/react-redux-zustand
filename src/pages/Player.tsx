@@ -1,21 +1,32 @@
 import { MessageCircle } from 'lucide-react'
 import { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
 
 import { Header } from '../components/Header'
 import { Module } from '../components/Module'
 import { Video } from '../components/Video'
+import { api } from '../lib/axios.ts'
 import { useAppSelector } from '../store'
-import { useCurrentLesson } from '../store/slices/player'
+import { start, useCurrentLesson } from '../store/slices/player'
 
 export function Player() {
+    const dispatch = useDispatch() 
+
     const modules = useAppSelector(state => {
-        return state.player.course.modules
+        return state.player.course?.modules
     })
 
     const { currentLesson } = useCurrentLesson()
 
+
     useEffect(() => {
-        document.title = `Assistindo: ${currentLesson.title}`
+        if (currentLesson) {
+            document.title = `Assistindo: ${currentLesson.title}`
+        }
+
+        api.get('/courses/1').then(response => {
+            dispatch(start(response.data))
+        })
     }, [currentLesson])
 
     return (
@@ -35,7 +46,7 @@ export function Player() {
                         <Video />
                     </div>
                     <aside className="absolute inset-y-0 right-0 w-80 divide-y-2 divide-zinc-900 overflow-y-scroll border-l border-zinc-800 bg-zinc-900 scrollbar scrollbar-thin scrollbar-track-zinc-950 scrollbar-thumb-zinc-800">
-                        {modules.map((module, index) => {
+                        {modules && modules.map((module, index) => {
                             return (
                                 <Module
                                     key={module.id}
